@@ -81,7 +81,7 @@ const EmergencyContact = () => {
             <p className="py-6 ml-5 mr-5">
               <ul>
                 {emergencyContacts.map((contact, index) => (
-                  <li key={index}>
+                  <li className="mt-3" key={index}>
                     {contact.name} - {contact.number}
                   </li>
                 ))}

@@ -92,11 +92,11 @@ const Emergency = () => {
 
       <section className="bg-white dark:bg-gray-900 bg-[url('https://flowbite.s3.amazonaws.com/docs/jumbotron/hero-pattern.svg')] dark:bg-[url('https://flowbite.s3.amazonaws.com/docs/jumbotron/hero-pattern-dark.svg')]">
         <div className="py-8 px-4 mx-auto max-w-screen-xl text-center lg:py-16 z-10 relative">
-          <div className="grid grid-cols-2 lg:grid-cols-4">
+          <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
             {emergencyContacts.map((contact, index) => (
               <div key={index}>
                 <button
-                  className="btn btn-outline btn-success mb-2"
+                  className="btn btn-outline btn-success w-full mb-2"
                   onClick={() => handleSendEmergency(contact)}
                 >
                   {contact.name}
