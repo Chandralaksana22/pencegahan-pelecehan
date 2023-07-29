@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-
+import { Link } from "react-router-dom";
 const EmergencyContact = () => {
   const [emergencyContacts, setEmergencyContacts] = useState([]);
   const [inputName, setInputName] = useState("");
@@ -44,8 +44,9 @@ const EmergencyContact = () => {
             Masukkan Beberapa Kontak Yang Anda Percaya
           </p>
           <div class="flex flex-col space-y-4 sm:flex-row sm:justify-center sm:space-y-0 sm:space-x-4">
+            <Link to="/">
             <a
-              href="/"
+              href="#"
               class="inline-flex justify-center items-center py-3 px-5 text-base font-medium text-center text-white rounded-lg bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 dark:focus:ring-blue-900"
             >
               Kembali
@@ -65,12 +66,15 @@ const EmergencyContact = () => {
                 />
               </svg>
             </a>
+            </Link>
+            <Link to="/emergency">
             <a
-              href="/emergency"
+              href="#"
               class="inline-flex justify-center items-center py-3 px-5 text-base font-medium text-center text-gray-900 rounded-lg border border-gray-300 hover:bg-gray-100 focus:ring-4 focus:ring-gray-100 dark:text-white dark:border-gray-700 dark:hover:bg-gray-700 dark:focus:ring-gray-800"
             >
               Halaman Pesanan
             </a>
+            </Link>
           </div>
         </div>
       </section>
