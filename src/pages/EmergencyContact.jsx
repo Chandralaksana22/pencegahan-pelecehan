@@ -117,7 +117,7 @@ const EmergencyContact = () => {
                 </div>
                 <div className="form-control mt-6">
                   <button type="submit" className="btn btn-primary">
-                    Login
+                   Simpan
                   </button>
                 </div>
               </form>
