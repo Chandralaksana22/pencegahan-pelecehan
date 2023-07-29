@@ -8,19 +8,6 @@ const App = () => {
   return (
     <Router>
       <div>
-        <nav>
-          <ul>
-            <li>
-              <Link to="/">Halaman Utama</Link>
-            </li>
-            <li>
-              <Link to="/input-nomor-darurat">Input Nomor Darurat</Link>
-            </li>
-            <li>
-              <Link to="/emergency">Emergency</Link>
-            </li>
-          </ul>
-        </nav>
           <Routes>
           <Route path="/" element={<Home/>} />
           <Route path="/input-nomor-darurat" element={<EmergencyContact/>} />
