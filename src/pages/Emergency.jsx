@@ -39,9 +39,7 @@ const Emergency = () => {
     const message =
       "Ini adalah pesan darurat! Saya membutuhkan bantuan segera. Lokasi saya:";
     const locationUrl = `https://www.google.com/maps?q=${latitude},${longitude}`;
-    const whatsappUrl = `https://api.whatsapp.com/send/?phone=${encodeURIComponent(
-      contact.number
-    )}&text=${encodeURIComponent(message + " " + locationUrl)}`;
+    const whatsappUrl = `https://api.whatsapp.com/send/?phone=${contact.number}&text=${message + " " + locationUrl}`;
 
     window.open(whatsappUrl, "_blank");
 
