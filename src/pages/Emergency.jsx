@@ -42,8 +42,6 @@ const Emergency = () => {
     const whatsappUrl = `https://api.whatsapp.com/send/?phone=${contact.number}&text=${message + " " + locationUrl}`;
 
     window.location.href = whatsappUrl;
-
-    alert("Pesan darurat telah dikirim!");
   };
 
   return (
