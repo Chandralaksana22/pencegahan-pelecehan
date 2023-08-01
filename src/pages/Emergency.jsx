@@ -41,7 +41,7 @@ const Emergency = () => {
     const locationUrl = `https://www.google.com/maps?q=${latitude},${longitude}`;
     const whatsappUrl = `https://wa.me/${encodeURIComponent(
       contact.number
-    )}&text=${encodeURIComponent(message + " " + locationUrl)}`;
+    )}?text=${encodeURIComponent(message + " " + locationUrl)}`;
 
     window.open(whatsappUrl, "_blank");
 
