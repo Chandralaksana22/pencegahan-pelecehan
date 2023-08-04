@@ -1,9 +1,14 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
+
 const EmergencyContact = () => {
   const [emergencyContacts, setEmergencyContacts] = useState([]);
   const [inputName, setInputName] = useState("");
   const [inputNumber, setInputNumber] = useState("");
+  const [editingIndex, setEditingIndex] = useState(-1);
+  const [editedName, setEditedName] = useState("");
+  const [editedNumber, setEditedNumber] = useState("");
+  const [isEditing, setIsEditing] = useState(false);
 
   const handleChangeName = (e) => {
     setInputName(e.target.value);
@@ -15,15 +20,35 @@ const EmergencyContact = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    const newContact = { name: inputName, number: inputNumber };
-    setEmergencyContacts([...emergencyContacts, newContact]);
+    if (isEditing && editingIndex >= 0) {
+      const updatedContacts = [...emergencyContacts];
+      updatedContacts[editingIndex] = { name: editedName, number: editedNumber };
+      setEmergencyContacts(updatedContacts);
+      setIsEditing(false);
+      setEditingIndex(-1);
+    } else {
+      const newContact = { name: inputName, number: inputNumber };
+      setEmergencyContacts([...emergencyContacts, newContact]);
+    }
+
     setInputName("");
     setInputNumber("");
-    // Simpan data darurat yang baru ditambahkan ke localStorage
-    localStorage.setItem(
-      "emergencyContacts",
-      JSON.stringify([...emergencyContacts, newContact])
-    );
+    localStorage.setItem("emergencyContacts", JSON.stringify(emergencyContacts));
+  };
+
+  const handleEditContact = (index) => {
+    const contact = emergencyContacts[index];
+    setEditedName(contact.name);
+    setEditedNumber(contact.number);
+    setEditingIndex(index);
+    setIsEditing(true);
+  };
+
+  const handleDeleteContact = (index) => {
+    const updatedContacts = [...emergencyContacts];
+    updatedContacts.splice(index, 1);
+    setEmergencyContacts(updatedContacts);
+    localStorage.setItem("emergencyContacts", JSON.stringify(updatedContacts));
   };
 
   useEffect(() => {
@@ -50,21 +75,6 @@ const EmergencyContact = () => {
               class="inline-flex justify-center items-center py-3 px-5 text-base font-medium text-center text-white rounded-lg bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 dark:focus:ring-blue-900"
             >
               Kembali
-              <svg
-                class="w-3.5 h-3.5 ml-2"
-                aria-hidden="true"
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 14 10"
-              >
-                <path
-                  stroke="currentColor"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth="2"
-                  d="M1 5h12m0 0L9 1m4 4L9 9"
-                />
-              </svg>
             </div>
             </Link>
             <Link to="/emergency">
@@ -86,6 +96,18 @@ const EmergencyContact = () => {
                 {emergencyContacts.map((contact, index) => (
                   <li className="mt-3" key={index}>
                     {contact.name} - {contact.number}
+                    <button
+                      className="btn btn-sm btn-warning ml-2"
+                      onClick={() => handleEditContact(index)}
+                    >
+                      Edit
+                    </button>
+                    <button
+                      className="btn btn-sm btn-error ml-2"
+                      onClick={() => handleDeleteContact(index)}
+                    >
+                      Delete
+                    </button>
                   </li>
                 ))}
               </ul>
@@ -101,8 +123,8 @@ const EmergencyContact = () => {
                   <input
                     type="text"
                     placeholder="Masukkan Nama Penolong"
-                    value={inputName}
-                    onChange={handleChangeName}
+                    value={isEditing && editingIndex >= 0 ? editedName : inputName}
+                    onChange={isEditing && editingIndex >= 0 ? (e) => setEditedName(e.target.value) : handleChangeName}
                     className="input input-bordered"
                   />
                 </div>
@@ -113,14 +135,14 @@ const EmergencyContact = () => {
                   <input
                     type="text"
                     placeholder="Nomor diawali dengan +62"
-                    value={inputNumber}
-                    onChange={handleChangeNumber}
+                    value={isEditing && editingIndex >= 0 ? editedNumber : inputNumber}
+                    onChange={isEditing && editingIndex >= 0 ? (e) => setEditedNumber(e.target.value) : handleChangeNumber}
                     className="input input-bordered"
                   />
                 </div>
                 <div className="form-control mt-6">
                   <button type="submit" className="btn btn-primary">
-                   Simpan
+                    {isEditing ? "Update" : "Simpan"}
                   </button>
                 </div>
               </form>
